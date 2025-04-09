@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unique Box Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 30px;
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: flex;
+      gap: 40px;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #00f2ff;
+      border-radius: 10px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Animation for Box 1: Rotate, scale, morph */
+    @keyframes crazySpin {
+      0%   { transform: rotate(0deg) scale(1); border-radius: 10px; background: #00f2ff; }
+      25%  { transform: rotate(180deg) scale(1.2); border-radius: 50%; background: #ff00c8; }
+      50%  { transform: rotate(360deg) scale(0.8); border-radius: 20% 80% 30% 70%; background: #f2ff00; }
+      75%  { transform: rotate(180deg) scale(1.3); border-radius: 10%; background: #00ffa2; }
+      100% { transform: rotate(0deg) scale(1); border-radius: 10px; background: #00f2ff; }
+    }
+
+    /* Animation for Box 2: Jump + color loop */
+    @keyframes jumpGlow {
+      0%   { transform: translateY(0); background: #ff6f61; box-shadow: 0 0 0 transparent; }
+      20%  { transform: translateY(-60px); background: #ffbd39; box-shadow: 0 0 20px #ffbd39; }
+      40%  { transform: translateY(0); background: #ff6f61; }
+      60%  { transform: translateY(-30px); background: #57ff6f; box-shadow: 0 0 30px #57ff6f; }
+      80%  { transform: translateY(0); background: #ff6f61; }
+      100% { transform: translateY(0); background: #ff6f61; box-shadow: 0 0 0 transparent; }
+    }
+
+    .box.animate1 {
+      animation: crazySpin 2s ease-in-out forwards;
+    }
+
+    .box.animate2 {
+      animation: jumpGlow 1.5s ease-in-out forwards;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="box" id="box1"></div>
+    <div class="box" id="box2"></div>
+  </div>
+
+  <button onclick="startAnimation()">Start Unique Animation</button>
+
+  <script>
+    function startAnimation() {
+      const box1 = document.getElementById('box1');
+      const box2 = document.getElementById('box2');
+
+      // Remove existing animations
+      box1.classList.remove('animate1');
+      box2.classList.remove('animate2');
+
+      // Trigger reflow to restart animation
+      void box1.offsetWidth;
+
+      // Add animations again
+      box1.classList.add('animate1');
+      box2.classList.add('animate2');
+    }
+  </script>
+
+</body>
+</html>
+
+
